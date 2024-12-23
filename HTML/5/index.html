@@ -1,0 +1,150 @@
+<html>
+
+<head>
+	<title>Ethan's Hangman game</title>
+	<style>
+	#game input {
+	font-size:50px;
+	padding:10px;
+	text-align:center;
+	}
+	input.text:focus {
+	background-color: #FF0000;
+	}
+	</style>
+</head>
+
+<body onLoad="init()">
+	<h1 align="center">Welcome to my Hangman game</h1>
+	
+	<form action="hangman2.html" method="get" name="myform">
+		<table align="center">
+          	<tr>
+				<td align="right"><button onClick="gameReset()">Reset</button></td>
+			</tr>
+			<tr valign="baseline">
+				<td><div id=game>Enter a Letter:  
+                    <select name="myguessL">
+                      <option value="a">a</option>
+                      <option value="b">b</option>
+                      <option value="c">c</option>
+                      <option value="d">d</option>
+                      <option value="e">e</option>
+                      <option value="f">f</option>
+                      <option value="g">g</option>
+                      <option value="h">h</option>
+                      <option value="i">i</option>
+                      <option value="j">j</option>
+                      <option value="k">k</option>
+                      <option value="l">l</option>
+                      <option value="m">m</option>
+                      <option value="n">n</option>
+                      <option value="o">o</option>
+                      <option value="p">p</option>
+                      <option value="q">q</option>
+                      <option value="r">r</option>
+                      <option value="s">s</option>
+                      <option value="t">t</option>
+                      <option value="u">u</option>
+                      <option value="v">v</option>
+                      <option value="w">w</option>
+                      <option value="x">x</option>
+                      <option value="y">y</option>
+                      <option value="z">z</option>
+                    </select> </div></td>
+			</tr>
+               <tr valign="baseline">
+				<td><div id=game>Enter a Word: <input name="myguess" class="text" type="text" /></div></td>
+			</tr>
+			<tr>
+				<td align="center"><button onClick="hangman()"><h1>Take a guess!</h1></button></td>
+			</tr>
+		</table>
+	</form>
+     
+	<script language ="javascript" type="text/javascript">
+	var user = getCookie("player");
+	var NumberOfTries = getCookie("tries");
+	  
+	function init() {
+    	  if (user == "") {
+         user = prompt("Please enter your name:", "");
+         if (user != "" && user != null) {
+           setCookie("player", user, 1);
+		 setCookie("tries", 0, 1);
+		 // Create an array of words
+		    var words = [
+		    "javascript", 
+		    "coding", 
+		    "technology",
+		    "computer",
+		    "trustworthy",
+		    "family",
+		    "house",
+		    "mouse",
+		    "watermelon",
+		    "swimming",
+		    "expire",
+		    "expensive",
+		    "resources",
+		    "untitled",
+		    "value",
+		    "random",
+		    "scratch",
+		    "adventure",
+		    "amazing",
+		    "ethan",
+		    ];
+		
+		    // Pick a random word
+		    var word = words[Math.floor(Math.random() * words.length)];
+		    setCookie("word", word, 1);
+		    setCookie("letters", word.length, 1);
+		
+		    // Set up the answer array
+		    for (var i = 0; i < word.length; i++) {
+			 setCookie("a"+i, "_", 1);
+		    } 
+         }
+    	  }
+	}
+	
+	function oneMore() {
+	  NumberOfTries++;
+	  setCookie("tries", NumberOfTries, 1);
+	}
+	
+	function gameReset() {
+	  setCookie("player", "", -1);
+	  setCookie("tries", "", -1);
+	  for (var i = 0; i < getCookie("letters"); i++) {
+		 setCookie("a"+i, "", -1);
+	  }
+	  setCookie("letters", "", -1);
+	  setCookie("word", "", -1);
+	}
+	
+	function hangman() {
+	   document.getElementById("myform").submit();
+	}
+	
+	function setCookie(cname, cvalue, exdays) {
+    	  var d = new Date();
+    	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    	  var expires = "expires="+d.toUTCString();
+    	  document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+
+	function getCookie(cname) {
+    	  var name = cname + "=";
+    	  var ca = document.cookie.split(';');
+    	  for(var i=0; i<ca.length; i++) {
+         var c = ca[i];
+         while (c.charAt(0)==' ') c = c.substring(1);
+         if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    	  }
+    		return "";
+	}
+	</script>
+</body>
+</html>

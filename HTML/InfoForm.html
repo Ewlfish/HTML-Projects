@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Information Form</title>
+<style type="text/css">
+body {background-color:#0CF }
+</style>
+</head>
+<body>
+<h1>Information Form</h1>
+<h2><i>Let me get to know you better!</i></h2>
+<form method="post">
+
+Your Name:
+
+<input type="text" size="40" maxlength="50"/>
+<br /> 
+<h5>&nbsp;</h5>
+What kind of animal are you?
+<input type="checkbox" />Rabbit
+<input type="checkbox" />Dog
+<input type="checkbox" />Cat
+<input type="checkbox" />Bird
+<input type="checkbox" />Pig
+<br />
+<h5>&nbsp;</h5>
+Are you alive?
+<input type="radio" />Yes
+<input type="radio" />No
+<br />
+<h5>&nbsp;</h5>
+What continent do you live in? 
+<select size="1">
+<option value="africa">Africa
+</option>
+<option value="north_america">North America
+</option>
+<option value="south_america">South America
+</option>
+<option value="antarctica" selected="selected">Antarctica
+</option>
+<option value="asia">Asia
+</option>
+<option value="europe">Europe
+</option>
+</select>
+<br />
+<h5>&nbsp;</h5>
+How many times do you fart? (rounded to the nearest fart)
+<input type="range" min="3" max="500000" step="1" onchange="document.getElementById('display').innerHTML = this.value"/>
+<span id="display">250000</span>
+<br />
+<h5>Comment:&nbsp;</h5>
+<textarea rows="5" cols="60" wrap="hard">
+Add your coment here.
+</textarea>
+<br />
+<h5>&nbsp;</h5>
+<input type="submit" value="Send"/>
+
+
+</form>
+</body>
+</html>

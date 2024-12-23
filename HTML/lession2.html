@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<title>My First Math Game</title>
+	</head>
+
+<body>
+	<form name="FirstGame">
+     <table> 
+     	<tr valign="baseline">
+          	<td><h2> 1 + 1 = </h2></td>
+               <td><input name="Enter" type="text" size="5" maxlength="1" /></td>
+               <td><button type="button" onClick="Calculation()">Go</button></td>
+          </tr>
+     </table>
+     </form>
+     <p id="demo"></p>
+     
+	<script language="JavaScript">
+     function Calculation(){
+          var x = 1;
+          var y = 1;
+          var answer = x + y;
+          var i = document.FirstGame.Enter.value;
+          var correct = "You are smart!";
+          var wrong = "You are so-so! Please do it again!";
+          if (i == answer)
+          {
+               alert(correct);
+               document.getElementById("demo").innerHTML = correct;
+               document.FirstGame.Enter.focus();
+          }
+          else
+          {
+               alert(wrong);
+               document.getElementById("demo").innerHTML = wrong;
+               document.FirstGame.Enter.focus();
+          } 
+     }
+     </script>
+</body>
+</html>

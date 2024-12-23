@@ -1,0 +1,149 @@
+<html>
+
+<head>
+	<title>Ethan's third game</title>
+	<style>
+	#game input {
+	font-size:50px;
+	padding:10px;
+	text-align:center;
+	}
+	input.text:focus {
+	background-color: #FF0000;
+	}
+	</style>
+</head>
+
+<body onLoad="init()">
+	
+    <h1 align="center">Welcome to my guessing game</h1>
+    
+	<form name="myform">
+		<table align="center">
+        <td colspan="3" align="right"><button onClick="gameReset()">Reset</button></td>
+        
+			<tr valign="baseline">
+				<td><div id=game><input name="input1" class="text" type="text" size=1 maxlength=1 /></div></td>
+				<td><div id=game><input name="input2" class="text" type="text" size=1 maxlength=1 /></div></td>
+				<td><div id=game><input name="input3" class="text" type="text" size=1 maxlength=1 /></div></td>
+			</tr>
+			<tr>
+				<td colspan="3" align="center"><button onClick="mythirdgame()"><h1>What's the password?</h1></button></td>
+			</tr>
+		</table>
+	</form>
+    
+    <ol>
+    <li>You need to put numbers in the right order to win the game.</li>
+    <li>If you get the right number but in the wrong place you get an 1B,</li>
+    <li>if two numbers, than 2B and so on ... Now I will tell you what happens if you get the right number in the right place.</li> 
+    <li>If you get one right number in the right place you get a 1A, if you get two numbers in the right place you get a 2A. And if you get all the correct numbers and in the right place you are the WINNER!</li>
+    </ol>
+	
+	<script language ="javascript" type="text/javascript">
+	var user = getCookie("player");
+	var NumberOfTries = getCookie("tries");
+	
+		 
+		 function init() {
+    	  if (user == "") {
+         user = prompt("Please enter your name:", "");
+         if (user != "" && user != null) {
+           setCookie("player", user, 1);
+		 setCookie("tries", 0, 1);
+         }
+    	  }  
+	}
+	
+	function oneMore() {
+	  NumberOfTries++;
+	  setCookie("tries", NumberOfTries, 1);
+	}
+	
+	function gameReset() {
+	  setCookie("player", "", -1);
+	  setCookie("tries", "", -1);
+	}
+	function mythirdgame(){
+	  var x = 1;
+	  var y = 8;
+	  var z = 0;
+	  var a = 0;
+	  var b = 0;
+	  var i = document.myform.input1.value;
+	  var j = document.myform.input2.value;
+	  var k = document.myform.input3.value;
+	  
+	  var winner = document.getElementById("win");
+	  var loser = document.getElementById("lose");
+	  var cluer = document.getElementById("clue");
+	
+	  if(i == j || i == k || j == k){
+		  
+		 oneMore();
+		alert("Welcome " + user + " for your " + NumberOfTries + " tries!" + "\n" + "Wrong! Please enter three diffrent numbers and try again!" + "\n" + "Good Luck!");
+		return; 
+		
+	  }  
+		  
+		if(i == x) a++;
+		if(i == y) b++;
+		if(i == z) b++;
+		if(j == x) b++;
+		if(j == y) a++;
+		if(j == z) b++;
+		if(k == x) b++;
+		if(k == y) b++;
+		if(k == z) a++;
+		
+		var clueA = a+"A";
+		var clueB = b+"B";
+		var clue = clueA+" "+clueB;
+		
+		if(a == 0 && b == 0){
+		oneMore();
+		alert("Welcome " + user + " for your " + NumberOfTries + " tries!" + "\n" + "Wrong! Too bad, No match! Please try again!" + "\n" + "Good Luck!");
+		}
+		
+		else if(a == 3) {
+		oneMore();
+		alert("Congratulations! " + user + "\n" + " The passowrd is correct after " + NumberOfTries + " tries!" + "\n" + "You Are the Winner!");
+		gameReset();
+		}
+		
+		else if(a == 0){
+		oneMore();
+		alert("Welcome " + user + " for your " + NumberOfTries + " tries!" + "\n" + "Wrong! But here is your clue code: " + clueB + "\n" + "Good Luck!");
+		}
+		
+		else if(b == 0){
+			oneMore();
+		alert("Welcome " + user + " for your " + NumberOfTries + " tries!" + "\n" + "Wrong! But here is your clue code: " + clueA + "\n" + "Good Luck!"); 
+	    }
+		
+	    else {
+		oneMore();
+		alert("Welcome " + user + " for your " + NumberOfTries + " tries!" + "\n" + "Wrong! But here is your clue code: " + clue + "\n" + "Good Luck!"); 
+	    }
+	}
+	
+	function setCookie(cname, cvalue, exdays) {
+    	  var d = new Date();
+    	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    	  var expires = "expires="+d.toUTCString();
+    	  document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+			
+	function getCookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+    	  for(var i=0; i<ca.length; i++) {
+         var c = ca[i];
+         while (c.charAt(0)==' ') c = c.substring(1);
+         if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    	  }
+    		return "";
+	}
+	</script>
+</body>
+</html>

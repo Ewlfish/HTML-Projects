@@ -1,0 +1,36 @@
+<html>
+
+<head>
+<title>Ethan's second game</title>
+</head>
+
+<body>
+<h1>Welcome to my second game</h1>
+<form name="myform">
+<table>
+<tr valign="baseline">
+<td><h2> 701 + 67 = </h2></td>
+<td><input name="player_input"type = "text" /></td>
+<td><button onClick="mysecondgame()"> go </button></td>
+</tr>
+</table>
+</form><script language ="javascript" type="text/javascript">
+function mysecondgame(){
+var x = 701;
+var y =67;
+var answer = x + y;
+var i = document.myform.player_input.value;
+var correct = "you are smart";
+var wrong = "you are wrong,please try again";
+if(i == answer)
+{
+alert(correct);
+}
+else
+{
+alert(wrong);
+}
+}
+</script>
+</body>
+</html>

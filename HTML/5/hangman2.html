@@ -1,0 +1,92 @@
+<html>
+
+<head>
+<title>Hangman!</title>
+</head>
+
+<body>
+<script language ="javascript" type="text/javascript">
+   var user = getCookie("player");
+   var NumberOfTries = getCookie("tries");
+   var remainingLetters = getCookie("letters");
+   var rightWord = getCookie("word");
+   var guess = getParameterByName('myguess');
+   var guessL = getParameterByName('myguessL');  
+   var feedback = "";
+
+    if (rightWord == guess){
+	  oneMore();
+	  feedback = user + "! Good job! The answer was <b>" + guess + "</b> after " + NumberOfTries + " tries!";
+	  gameReset();
+    } else {
+	  if (guess != ""){
+	  	oneMore();
+	  	feedback = user + "! You guess wrong!";
+    	  } else {
+	  for (var j = 0; j < remainingLetters; j++) {
+		if (rightWord[j] == guessL) {
+		  setCookie("a"+j, "", -1);
+		  setCookie("a"+j, guessL, 1);
+		}
+	   }
+	   oneMore();
+	   // Set up the answer array
+	   var answerArray = [];
+	    for (var i = 0; i < remainingLetters; i++) {
+		 answerArray[i] = getCookie("a"+i);
+	    }
+	   cluetext = answerArray.join(" ");
+	   feedback = "Wrong! Give you a clue: " + cluetext;
+	  }
+    }
+    
+    document.write("<h1>" + feedback + "</h1>");
+    
+    function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+		   results = regex.exec(location.search);
+	    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+	
+	function oneMore() {
+	  NumberOfTries++;
+	  setCookie("tries", NumberOfTries, 1);
+	}
+	
+	function gameReset() {
+	  setCookie("player", "", -1);
+	  setCookie("tries", "", -1);
+	  for (var i = 0; i < getCookie("letters"); i++) {
+		 setCookie("a"+i, "", -1);
+	  }
+	  setCookie("letters", "", -1);
+	  setCookie("word", "", -1);
+	}
+	
+	function setCookie(cname, cvalue, exdays) {
+    	  var d = new Date();
+    	  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    	  var expires = "expires="+d.toUTCString();
+    	  document.cookie = cname + "=" + cvalue + "; " + expires;
+	}
+
+	function getCookie(cname) {
+    	  var name = cname + "=";
+    	  var ca = document.cookie.split(';');
+    	  for(var i=0; i<ca.length; i++) {
+         var c = ca[i];
+         while (c.charAt(0)==' ') c = c.substring(1);
+         if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    	  }
+    		return "";
+	}
+	
+	function goBack() {
+	    window.history.back();
+	}
+	</script>
+     
+     <button onClick="goBack()"><h1>Go Back</h1></button>
+</body>
+</html>
